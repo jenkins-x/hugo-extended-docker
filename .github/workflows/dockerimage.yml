@@ -14,7 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
+      env:
+        REGISTRY_PASSWORD: ${{ secrets.DOCKER_PW }}
+        REGISTRY_USER: ${{ secrets.DOCKER_USER }}
       run: |
         docker build . --file Dockerfile --tag hugo-extended:latest
         docker tag hugo-extended:latest dennisnewel/hugo-extended:latest
+        echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
         docker push dennisnewel/hugo-extended:latest
