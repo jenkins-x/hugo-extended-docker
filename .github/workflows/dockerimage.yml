@@ -1,0 +1,20 @@
+name: Docker Image CI
+
+on: 
+  push:
+    branches:
+    - master
+
+jobs:
+
+  build:
+ 
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: |
+        docker build . --file Dockerfile --tag hugo-extended:latest
+        docker tag hugo-extended:latest dennisnewel/hugo-extended:latest
+        docker push dennisnewel/hugo-extended:latest
