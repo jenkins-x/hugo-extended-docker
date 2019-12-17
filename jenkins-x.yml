@@ -34,7 +34,7 @@ pipelineConfig:
               command: /kaniko/executor
               args:
                 - --dockerfile=/workspace/source/Dockerfile
-                - --destination=gcr.io/jenkinsxio/hugo-extended:${inputs.params.version}
+                - --destination=gcr.io/jenkinsxio/hugo-extended:${VERSION}
                 - --context=/workspace/source
                 - --cache-repo=gcr.io/jenkinsxio/cache
                 - --cache=true
@@ -72,7 +72,7 @@ pipelineConfig:
               command: /kaniko/executor
               args:
                 - --dockerfile=/workspace/source/Dockerfile
-                - --destination=gcr.io/jenkinsxio/hugo-extended:${inputs.params.version}
+                - --destination=gcr.io/jenkinsxio/hugo-extended:${VERSION}
                 - --destination=gcr.io/jenkinsxio/hugo-extended:latest
                 - --context=/workspace/source
                 - --cache-repo=gcr.io/jenkinsxio/cache
