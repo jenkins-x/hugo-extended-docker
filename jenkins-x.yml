@@ -34,7 +34,7 @@ pipelineConfig:
               command: /kaniko/executor
               args:
                 - --dockerfile=/workspace/source/Dockerfile
-                - --destination=gcr.io/jenkinsxio/hugo-extended:$(cat HUGO_VERSION)
+                - --destination=gcr.io/jenkinsxio/hugo-extended:$(cat HUGO_VERSION)-${BUILD_NUMBER}
                 - --context=/workspace/source
                 - --cache-repo=gcr.io/jenkinsxio/cache
                 - --cache=true
@@ -73,19 +73,11 @@ pipelineConfig:
                 - kaniko-secret
                 - -f
                 - /builder/home/kaniko-secret.json
-            - name: tag-it
-              command: git
-              args:
-                - tag
-                - -a
-                - v$(cat HUGO_VERSION)
-                - -m
-                - "Based on Hugo v$(cat HUGO_VERSION)"
             - name: build-and-push-image
               command: /kaniko/executor
               args:
                 - --dockerfile=/workspace/source/Dockerfile
-                - --destination=gcr.io/jenkinsxio/hugo-extended:$(cat HUGO_VERSION)
+                - --destination=gcr.io/jenkinsxio/hugo-extended:${inputs.params.version}
                 - --destination=gcr.io/jenkinsxio/hugo-extended:latest
                 - --context=/workspace/source
                 - --cache-repo=gcr.io/jenkinsxio/cache
