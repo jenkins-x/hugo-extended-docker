@@ -31,7 +31,9 @@ pipelineConfig:
                 - -f
                 - /builder/home/kaniko-secret.json
             - name: set-version
-              command: "export HUGO_VERSION=$(cat HUGO_VERSION)"
+              command: export
+              args:
+                - HUGO_VERSION=$(cat HUGO_VERSION)
             - name: build-and-push-image
               command: /kaniko/executor
               args:
