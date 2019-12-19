@@ -34,12 +34,17 @@ pipelineConfig:
               command: /kaniko/executor
               args:
                 - --dockerfile=/workspace/source/Dockerfile
-                - --destination=gcr.io/jenkinsxio/hugo-extended:${inputs.params.version}
+                - --destination=gcr.io/jenkinsxio/hugo-extended:$(cat HUGO_VERSION)-${PULL_NUMBER}-${BUILD_NUMBER}
                 - --context=/workspace/source
                 - --cache-repo=gcr.io/jenkinsxio/cache
                 - --cache=true
                 - --cache-dir=/workspace
     release:
+      setVersion:
+        steps:
+          - name: next-version
+            sh: "jx step next-version --version $(cat HUGO_VERSION)-${BUILD_NUMBER} --tag"
+
       pipeline:
         agent:
           image: gcr.io/kaniko-project/executor:9912ccbf8d22bbafbf971124600fbb0b13b9cbd6
