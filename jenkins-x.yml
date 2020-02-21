@@ -34,6 +34,7 @@ pipelineConfig:
               command: /kaniko/executor
               args:
                 - --dockerfile=/workspace/source/Dockerfile
+                - --build-args HUGO_VERSION=$(cat HUGO_VERSION)
                 - --destination=gcr.io/jenkinsxio/hugo-extended:$(cat HUGO_VERSION)-${PULL_NUMBER}-${BUILD_NUMBER}
                 - --context=/workspace/source
                 - --cache-repo=gcr.io/jenkinsxio/cache
@@ -77,6 +78,7 @@ pipelineConfig:
               command: /kaniko/executor
               args:
                 - --dockerfile=/workspace/source/Dockerfile
+                - --build-args HUGO_VERSION=$(cat HUGO_VERSION)
                 - --destination=gcr.io/jenkinsxio/hugo-extended:${inputs.params.version}
                 - --destination=gcr.io/jenkinsxio/hugo-extended:latest
                 - --context=/workspace/source

@@ -19,7 +19,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 
 # install hugo
-ENV HUGO_VERSION 0.65.1
+ARG HUGO_VERSION
 RUN curl -Lf -o hugo.zip https://github.com/gohugoio/hugo/archive/v${HUGO_VERSION}.zip && \
   unzip hugo.zip && \
   cd hugo-${HUGO_VERSION} && \
