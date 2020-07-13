@@ -6,4 +6,4 @@ Uses `ubuntu:latest` as base image and adds the following:
 
 - Go 1.14
 - NodeJS 12.x.x
-- Hugo extended 0.65.3
+- Hugo extended 0.74.0
